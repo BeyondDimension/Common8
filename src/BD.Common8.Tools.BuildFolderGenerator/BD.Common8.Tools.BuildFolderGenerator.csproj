@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net$(DotNet_Version)</TargetFramework>
+		<DefineConstants>DEL_SERIALIZABLE;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
+
+	<!--<ItemGroup>
+		<PackageReference Include="BD.Common8.Primitives.ApiRsp" PrivateAssets="All" />
+	</ItemGroup>-->
+
+	<ItemGroup>
+		<Compile Include="..\Utils.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.Common8.Bcl\BD.Common8\Extensions\StreamExtensions.Write.cs">
+			<LinkBase>_SourceReference\Extensions</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.Common8.Bcl\BD.Common8\Extensions\StreamExtensions.Format.cs">
+			<LinkBase>_SourceReference\Extensions</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+</Project>

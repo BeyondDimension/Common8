@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="..\GeneratePackage.props" />
+	<Import Project="..\Serializable.props" />
+
+	<PropertyGroup>
+		<TargetFrameworks>net45;net461;net462;net47;netstandard2.0;netstandard2.1;net7.0;net7.0-windows;net8.0;net8.0-windows</TargetFrameworks>
+		<RootNamespace></RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Nito.Comparers" />
+		<PackageReference Include="Crc32.NET" />
+		<PackageReference Include="Newtonsoft.Json" PrivateAssets="All" />
+	</ItemGroup>
+
+	<!-- != .NET Framework 3.5 ~ 4.6.1 && != .NET Standard 1.X -->
+	<ItemGroup Condition=" (!$(TargetFramework.StartsWith('net35')) AND !$(TargetFramework.StartsWith('net40')) AND !$(TargetFramework.StartsWith('net45')) AND !$(TargetFramework.StartsWith('net451')) AND !$(TargetFramework.StartsWith('net452')) AND !$(TargetFramework.StartsWith('net46')) AND !$(TargetFramework.StartsWith('netstandard1'))) OR $(TargetFramework.StartsWith('net462')) ">
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.Extensions.Logging" PrivateAssets="All" />
+		<PackageReference Include="System.IO.Pipelines" PrivateAssets="All" />
+	</ItemGroup>
+
+	<!-- != .NET Framework && != .NET Standard && >= .NET 7 -->
+	<ItemGroup Condition=" !$(TargetFramework.StartsWith('net3')) AND !$(TargetFramework.StartsWith('net4')) AND !$(TargetFramework.StartsWith('netstandard')) AND !$(TargetFramework.StartsWith('net5')) AND !$(TargetFramework.StartsWith('net6')) ">
+		<PackageReference Include="gfoidl.Base64" />
+	</ItemGroup>
+
+	<!-- .NET Framework 4.5+ -->
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) AND !$(TargetFramework.StartsWith('net40')) ">
+		<PackageReference Include="System.Memory" />
+		<PackageReference Include="System.Threading.Tasks.Extensions" />
+	</ItemGroup>
+
+	<!-- .NET Framework 4.5 ~ 4.6.2 -->
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('net45')) OR $(TargetFramework.StartsWith('net46')) ">
+		<PackageReference Include="System.ValueTuple" />
+	</ItemGroup>
+
+</Project>

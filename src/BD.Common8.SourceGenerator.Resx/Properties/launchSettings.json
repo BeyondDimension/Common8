@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BD.Common8.SourceGenerator.Resx (DebugRoslynComponent)": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\BD.Common8.SourceGenerator.Resx.ConsoleTest\\BD.Common8.SourceGenerator.Resx.ConsoleTest.csproj"
+    }
+  }
+}

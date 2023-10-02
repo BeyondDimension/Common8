@@ -1,0 +1,37 @@
+<Project>
+	<PropertyGroup>
+		<DefineConstants>SOURCE_GENERATOR;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\BD.Common8.Bcl\System\Runtime\CompilerServices\IsExternalInit.cs">
+			<LinkBase>_SourceReference\System\Runtime\CompilerServices</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.Common8.Bcl\System\IndexRange.cs">
+			<LinkBase>_SourceReference\System</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.Common8.Bcl\System\Runtime\CompilerServices\RequiredMemberAttribute.cs">
+			<LinkBase>_SourceReference\System\Runtime\CompilerServices</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.Common8.Bcl\System\Runtime\CompilerServices\CompilerFeatureRequiredAttribute.cs">
+			<LinkBase>_SourceReference\System\Runtime\CompilerServices</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.Common8.Bcl\BD.Common8\Extensions\StreamExtensions.Write.cs">
+			<LinkBase>_SourceReference\Extensions</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.Common8.Bcl\BD.Common8\Extensions\StreamExtensions.Format.cs">
+			<LinkBase>_SourceReference\Extensions</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.Common8.Bcl\System\Diagnostics\CodeAnalysis\NotNullWhenAttribute.cs">
+			<LinkBase>_SourceReference\System\Diagnostics\CodeAnalysis</LinkBase>
+		</Compile>
+	</ItemGroup>
+</Project>

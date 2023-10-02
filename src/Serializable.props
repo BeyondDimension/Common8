@@ -1,0 +1,16 @@
+<Project>
+	<!-- .NET Framework 4.6.2+ -->
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('net462')) OR $(TargetFramework.StartsWith('net47')) OR $(TargetFramework.StartsWith('net48')) OR $(TargetFramework.StartsWith('netstandard2')) ">
+		<PackageReference Include="System.Text.Json" PrivateAssets="All" />
+	</ItemGroup>
+
+	<!-- != .NET Framework && >= .NET Standard 2.1 && >= .NET 7 -->
+	<ItemGroup Condition=" !$(TargetFramework.StartsWith('net3')) AND !$(TargetFramework.StartsWith('net4')) AND !$(TargetFramework.StartsWith('netstandard1')) AND !$(TargetFramework.StartsWith('netstandard2.0')) AND !$(TargetFramework.StartsWith('net5')) AND !$(TargetFramework.StartsWith('net6')) ">
+		<PackageReference Include="MemoryPack" PrivateAssets="All" />
+	</ItemGroup>
+
+	<!-- != .NET Framework && >= .NET Standard 2.0 && >= .NET 6 -->
+	<ItemGroup Condition=" !$(TargetFramework.StartsWith('net3')) AND !$(TargetFramework.StartsWith('net4')) AND !$(TargetFramework.StartsWith('netstandard1')) AND !$(TargetFramework.StartsWith('net5')) ">
+		<PackageReference Include="MessagePack" PrivateAssets="All" />
+	</ItemGroup>
+</Project>

@@ -1,0 +1,24 @@
+<Project>
+	<!-- NuGet 错误 NU1011 PackageVersion 项不能包含浮动版本。 -->
+	<ItemGroup>
+		<PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.507" />
+		<PackageVersion Include="Nito.Comparers" Version="6.2.2" />
+		<PackageVersion Include="Crc32.NET" Version="1.2.0" />
+		<PackageVersion Include="gfoidl.Base64" Version="2.0.0" />
+		<PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageVersion Include="MemoryPack" Version="1.9.16" />
+		<PackageVersion Include="MessagePack" Version="2.5.129" />
+		<PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1" />
+		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0-rc.1.23419.4" />
+		<PackageVersion Include="Microsoft.Extensions.Logging" Version="8.0.0-rc.1.23419.4" />
+		<PackageVersion Include="System.IO.Pipelines" Version="8.0.0-rc.1.23419.4" />
+		<PackageVersion Include="System.Text.Json" Version="8.0.0-rc.1.23419.4" />
+		<PackageVersion Include="System.Memory" Version="4.5.5" />
+		<PackageVersion Include="System.ValueTuple" Version="4.5.0" />
+		<PackageVersion Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+		<PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" />
+		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.5.0" />
+		<PackageVersion Include="BD.Common8.Primitives.ApiRsp" Version="1.23.11007.10814" />
+		<PackageVersion Include="BD.Common8.SourceGenerator.Resx" Version="1.23.11007.12110" />
+	</ItemGroup>
+</Project>

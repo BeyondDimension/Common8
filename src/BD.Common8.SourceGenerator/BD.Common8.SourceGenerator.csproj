@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(SourceGenerator_TargetFramework)</TargetFramework>
+	</PropertyGroup>
+
+	<Import Project="..\SourceGenerator.Base.props" />
+
+</Project>

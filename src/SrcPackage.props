@@ -1,0 +1,17 @@
+<Project>
+	<PropertyGroup>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<IncludeSymbols>false</IncludeSymbols>
+	</PropertyGroup>
+
+	<Target Name="IncludeAllDependencies" BeforeTargets="_GetPackageFiles">
+		<ItemGroup>
+			<None Include="..\SrcPackage\build\$(MSBuildProjectName).props" Pack="True" PackagePath="build\$(PackageId).props" />
+			<None Include="..\SrcPackage\build\$(MSBuildProjectName).targets" Pack="True" PackagePath="build\$(PackageId).targets" />
+			<None Include="..\SrcPackage\buildMultiTargeting\$(MSBuildProjectName).props" Pack="True" PackagePath="buildMultiTargeting\$(PackageId).props" />
+			<None Include="..\SrcPackage\buildMultiTargeting\$(MSBuildProjectName).targets" Pack="True" PackagePath="buildMultiTargeting\$(PackageId).targets" />
+			<None Include="**\*.cs" Exclude="bin\**;obj\**" Pack="True" PackagePath="src" />
+			<None Include="..\.editorconfig" PackagePath="src" />
+		</ItemGroup>
+	</Target>
+</Project>

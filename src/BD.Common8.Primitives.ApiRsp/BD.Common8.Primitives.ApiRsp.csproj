@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="..\GeneratePackage.props" />
+	<Import Project="..\Serializable.props" />
+
+	<PropertyGroup>
+		<TargetFrameworks>net40;net45;netstandard2.0;netstandard2.1;net7.0;net8.0</TargetFrameworks>
+		<!--<TargetFrameworks>net461;netstandard2.0;netstandard2.1;net7.0;net8.0</TargetFrameworks>-->
+		<DefineConstants>DEL_GLOBALUSING_BD_COMMON8_EX;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\BD.Common8.Bcl\System\Runtime\CompilerServices\MethodImplOptionsEnum.cs">
+			<LinkBase>_SourceReference\System\Runtime\CompilerServices</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<!--<ProjectReference Include="..\BD.Common8.SourceGenerator.Resx\BD.Common8.SourceGenerator.Resx.csproj">
+			<OutputItemType>Analyzer</OutputItemType>
+			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+		</ProjectReference>-->
+		<PackageReference Include="BD.Common8.SourceGenerator.Resx" />
+	</ItemGroup>
+
+	<!--<Import Project="..\SrcPackage.props" />-->
+	<Import Project="..\..\res\i18n\BD.Common8.Primitives.ApiRsp.props" />
+
+</Project>

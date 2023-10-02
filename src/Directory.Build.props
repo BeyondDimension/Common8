@@ -1,0 +1,43 @@
+<Project>
+	<PropertyGroup>
+		<DotNet_Version>8.0</DotNet_Version>
+		<WinSDK_Version>10.0.19041.0</WinSDK_Version>
+		<SourceGenerator_TargetFramework>netstandard2.0</SourceGenerator_TargetFramework>
+		<NoWarn>$(NoWarn);NU1507;1591;SA1612;IL2026</NoWarn>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<!--<Version>1.yy.1MMdd.1hhmm</Version>-->
+		<Version>1.23.11007.10814</Version>
+		<PackageIconUrl>https://avatars.githubusercontent.com/u/79355691</PackageIconUrl>
+		<Company>江苏蒸汽凡星科技有限公司</Company>
+		<Copyright>©️ $(Company). All rights reserved.</Copyright>
+		<Authors>$(Company)</Authors>
+		<FileVersion>$(Version)</FileVersion>
+		<AssemblyVersion>$(Version)</AssemblyVersion>
+		<NeutralLanguage>zh-Hans</NeutralLanguage>
+		<AndroidSdkDirectory Condition="$([MSBuild]::IsOSPlatform('windows')) And Exists('C:\Users\Aigio\AppData\Local\Android\Sdk')">C:\Users\Aigio\AppData\Local\Android\Sdk</AndroidSdkDirectory>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">
+		<!-- AOT & Trimmable -->
+		<IsTrimmable>true</IsTrimmable>
+		<EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+		<EnableSingleFileAnalyzer>true</EnableSingleFileAnalyzer>
+		<EnableAotAnalyzer>true</EnableAotAnalyzer>
+		<IsAotCompatible>true</IsAotCompatible>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="..\GlobalUsings.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
+	</ItemGroup>
+</Project>
