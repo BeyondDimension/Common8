@@ -1,0 +1,26 @@
+<Project>
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<Target Name="_BD_Common8_Primitives_ApiRspProperties">
+		<PropertyGroup>
+			<_BD_Common8_Primitives_ApiRspRoot>$(MSBuildThisFileDirectory)..\</_BD_Common8_Primitives_ApiRspRoot>
+			<_BD_Common8_Primitives_ApiRspSourceFolder>$(MSBuildThisFileDirectory)..\src\</_BD_Common8_Primitives_ApiRspSourceFolder>
+		</PropertyGroup>
+		<Message Text="1. 初始化源代码包的编译属性：BD_Common8_Primitives_ApiRsp" />
+	</Target>
+
+	<!-- 引入 C# 源码。 -->
+	<Target Name="_BD_Common8_Primitives_ApiRspIncludeSourceFiles"
+			BeforeTargets="CoreCompile"
+			DependsOnTargets="_BD_Common8_Primitives_ApiRspProperties">
+		<ItemGroup>
+			<_BD_Common8_Primitives_ApiRspCompile Include="$(_BD_Common8_Primitives_ApiRspSourceFolder)**\*.cs" />
+			<Compile Include="@(_BD_Common8_Primitives_ApiRspCompile)" LinkBase="_SourceReference\BD.Common8.Primitives.ApiRsp" />
+		</ItemGroup>
+		<Message Text="2 引入源代码包中的所有源代码：@(_BD_Common8_Primitives_ApiRspCompile)" />
+	</Target>
+
+</Project>
