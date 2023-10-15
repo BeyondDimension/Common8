@@ -1,5 +1,3 @@
-using System.Linq.Expressions;
-
 namespace BD.Common8.Extensions;
 
 public static partial class QueryableExtensions // WhereOr
@@ -11,6 +9,8 @@ public static partial class QueryableExtensions // WhereOr
     /// <param name="source"></param>
     /// <param name="predicates"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [RequiresDynamicCode("Enumerating collections as IQueryable can require creating new generic types or methods, which requires creating code at runtime. This may not work when AOT compiling.")]
     public static IQueryable<T> WhereOr<T>(this IQueryable<T> source, IReadOnlyList<Expression<Func<T, bool>>> predicates)
     {
         var predicate = ExpressionHelper.WhereOr(predicates);
@@ -24,6 +24,8 @@ public static partial class QueryableExtensions // WhereOr
     /// <param name="source"></param>
     /// <param name="predicates"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [RequiresDynamicCode("Enumerating collections as IQueryable can require creating new generic types or methods, which requires creating code at runtime. This may not work when AOT compiling.")]
     public static IQueryable<T> WhereOr<T>(this IQueryable<T> source, IEnumerable<Expression<Func<T, bool>>> predicates)
         => source.WhereOr(predicates.ToArray());
 
@@ -34,6 +36,8 @@ public static partial class QueryableExtensions // WhereOr
     /// <param name="source"></param>
     /// <param name="predicates"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [RequiresDynamicCode("Enumerating collections as IQueryable can require creating new generic types or methods, which requires creating code at runtime. This may not work when AOT compiling.")]
     public static IQueryable<T> WhereOr<T>(this IQueryable<T> source, params Expression<Func<T, bool>>[] predicates)
     {
         IReadOnlyList<Expression<Func<T, bool>>> predicates_ = predicates;

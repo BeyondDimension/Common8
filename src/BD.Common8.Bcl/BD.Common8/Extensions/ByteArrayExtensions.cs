@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace BD.Common8.Extensions;
 
 /// <summary>
@@ -12,6 +10,7 @@ public static partial class ByteArrayExtensions
     /// </summary>
     /// <param name="buffer"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static sbyte[] ToSByteArray(this byte[] buffer)
     {
         ReadOnlySpan<byte> buffer_ = buffer;
@@ -19,10 +18,11 @@ public static partial class ByteArrayExtensions
     }
 
     /// <summary>
-    /// 将 ReadOnlySpan<byte> 转换为 sbyte[]
+    /// 将 ReadOnlySpan&lt;sbyte&gt; 转换为 sbyte[]
     /// </summary>
     /// <param name="buffer"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static sbyte[] ToSByteArray(this ReadOnlySpan<byte> buffer)
         => MemoryMarshal.Cast<byte, sbyte>(buffer).ToArray();
 
@@ -31,6 +31,7 @@ public static partial class ByteArrayExtensions
     /// </summary>
     /// <param name="buffer"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte[] ToByteArray(this sbyte[] buffer)
     {
         ReadOnlySpan<sbyte> buffer_ = buffer;
@@ -38,10 +39,11 @@ public static partial class ByteArrayExtensions
     }
 
     /// <summary>
-    /// 将 ReadOnlySpan<sbyte> 转换为 byte[]
+    /// 将 ReadOnlySpan&lt;sbyte&gt; 转换为 byte[]
     /// </summary>
     /// <param name="buffer"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte[] ToByteArray(this ReadOnlySpan<sbyte> buffer)
         => MemoryMarshal.Cast<sbyte, byte>(buffer).ToArray();
 
@@ -51,6 +53,7 @@ public static partial class ByteArrayExtensions
     /// <param name="inArray"></param>
     /// <param name="isLower"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string ToHexString(this byte[] inArray, bool isLower = false)
     {
 #if HEXMATE
@@ -58,7 +61,12 @@ public static partial class ByteArrayExtensions
 #elif NET5_0_OR_GREATER
         return isLower ? Convert.ToHexString(inArray).ToLowerInvariant() : Convert.ToHexString(inArray);
 #else
-        return string.Concat(Array.ConvertAll(inArray, x => x.ToString(isLower ? "x2" : "X2")));
+        StringBuilder b = new();
+        foreach (var item in inArray)
+        {
+            b.Append(item.ToString(isLower ? "x2" : "X2"));
+        }
+        return b.ToString();
 #endif
     }
 
@@ -66,8 +74,22 @@ public static partial class ByteArrayExtensions
     /// 将 byte[] 转换为 HexString
     /// </summary>
     /// <param name="bytes"></param>
+    /// <param name="isLower"></param>
     /// <returns></returns>
-    public static string ToHexString(this ReadOnlySpan<byte> bytes) => Convert.ToHexString(bytes);
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string ToHexString(this ReadOnlySpan<byte> bytes, bool isLower = false)
+#if NET5_0_OR_GREATER
+        => isLower ? Convert.ToHexString(bytes).ToLowerInvariant() : Convert.ToHexString(bytes);
+#else
+    {
+        StringBuilder b = new();
+        foreach (var item in bytes)
+        {
+            b.Append(item.ToString(isLower ? "x2" : "X2"));
+        }
+        return b.ToString();
+    }
+#endif
 
     /// <summary>
     /// 将 byte[] 转换为 HexString
@@ -75,6 +97,20 @@ public static partial class ByteArrayExtensions
     /// <param name="inArray"></param>
     /// <param name="offset"></param>
     /// <param name="length"></param>
+    /// <param name="isLower"></param>
     /// <returns></returns>
-    public static string ToHexString(this byte[] inArray, int offset, int length) => Convert.ToHexString(inArray, offset, length);
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string ToHexString(this byte[] inArray, int offset, int length, bool isLower = false)
+#if NET5_0_OR_GREATER
+        => isLower ? Convert.ToHexString(inArray, offset, length).ToLowerInvariant() : Convert.ToHexString(inArray, offset, length);
+#else
+    {
+        StringBuilder b = new();
+        for (int i = offset; i < length; i++)
+        {
+            b.Append(inArray[i].ToString(isLower ? "x2" : "X2"));
+        }
+        return b.ToString();
+    }
+#endif
 }

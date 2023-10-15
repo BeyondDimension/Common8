@@ -15,6 +15,7 @@ internal sealed class NotNullWhenAttribute : Attribute
     /// Initializes a new instance of the <see cref="NotNullWhenAttribute"/> class.
     /// </summary>
     /// <param name="returnValue">The return value condition. If the method returns this value, the associated parameter will not be null.</param>
+#pragma warning disable IDE0290 // 使用主构造函数
     public NotNullWhenAttribute(bool returnValue)
     {
         ReturnValue = returnValue;

@@ -11,6 +11,7 @@ static partial class StreamExtensions // Async | byte[] | ReadOnlyMemory<byte>
     /// <param name="buffer">字节数组。</param>
     /// <param name="cancellationToken">要监视取消请求的标记。 默认值是 <see cref="CancellationToken.None"/>。</param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static async ValueTask WriteAsync(
         this Stream stream,
         byte[] buffer,
@@ -26,6 +27,7 @@ static partial class StreamExtensions // Async | byte[] | ReadOnlyMemory<byte>
     /// <param name="buffer">要将数据写入的字节数组。</param>
     /// <param name="cancellationToken">要监视取消请求的标记。 默认值是 <see cref="CancellationToken.None"/>。</param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static async ValueTask<int> ReadAsync(
         this Stream stream,
         byte[] buffer,

@@ -1,7 +1,6 @@
-// ReSharper disable once CheckNamespace
 namespace System;
 
-public static partial class StringExtensions
+public static partial class StringExtensions // Trim
 {
     /// <summary>
     /// 从当前字符串删除所有前导空白字符串。
@@ -9,6 +8,7 @@ public static partial class StringExtensions
     /// <param name="s"></param>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string TrimStart(this string s, string value)
     {
         if (s.StartsWith(value))
@@ -27,6 +27,7 @@ public static partial class StringExtensions
     /// <param name="s"></param>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string TrimEnd(this string s, string value)
     {
         if (s.EndsWith(value))
@@ -46,6 +47,7 @@ public static partial class StringExtensions
     /// <param name="value"></param>
     /// <param name="comparisonType"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string TrimStart(this string s, string value, StringComparison comparisonType)
     {
         if (s.StartsWith(value, comparisonType))
@@ -65,6 +67,7 @@ public static partial class StringExtensions
     /// <param name="value"></param>
     /// <param name="comparisonType"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string TrimEnd(this string s, string value, StringComparison comparisonType)
     {
         if (s.EndsWith(value, comparisonType))

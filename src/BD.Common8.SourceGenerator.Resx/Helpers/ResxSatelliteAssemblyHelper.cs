@@ -1,6 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-
 namespace BD.Common8.SourceGenerator.Resx.Helpers;
 
 static partial class ResxSatelliteAssemblyHelper

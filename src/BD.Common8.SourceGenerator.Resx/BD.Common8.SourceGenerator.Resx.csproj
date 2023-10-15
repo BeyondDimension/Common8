@@ -4,8 +4,8 @@
 	<Import Project="..\SourceGenerator.props" />
 
 	<PropertyGroup>
-		<!--<Version>1.yy.1MMdd.1hhmm</Version>-->
-		<Version>1.23.11007.12110</Version>
+		<!--<Version>8.yy.1MMdd.1hhmm</Version>-->
+		<Version>8.23.11013.11753</Version>
 		<FileVersion>$(Version)</FileVersion>
 		<AssemblyVersion>$(Version)</AssemblyVersion>
 	</PropertyGroup>

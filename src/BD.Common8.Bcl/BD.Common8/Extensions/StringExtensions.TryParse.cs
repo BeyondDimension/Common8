@@ -1,7 +1,6 @@
-// ReSharper disable once CheckNamespace
 namespace System;
 
-public static partial class StringExtensions
+public static partial class StringExtensions // TryParse
 {
     /// <summary>
     /// 尝试将数字的字符串表示形式转换为 双精度浮点型
@@ -75,6 +74,11 @@ public static partial class StringExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte? TryParseByte(this string value) => byte.TryParse(value, out var temp) ? temp : null;
 
+    /// <summary>
+    /// 尝试将数字的字符串表示形式转换为它的等效 bool 值
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool? TryParseBoolean(this string value) => bool.TryParse(value, out var temp) ? temp : null;
 
@@ -86,6 +90,11 @@ public static partial class StringExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static sbyte? TryParseSByte(this string value) => sbyte.TryParse(value, out sbyte temp) ? temp : null;
 
+    /// <summary>
+    /// 尝试将数字的字符串表示形式转换为它的等效 Version 值
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Version? TryParseVersion(this string value) => Version.TryParse(value, out var temp) ? temp : null;
 
@@ -97,7 +106,7 @@ public static partial class StringExtensions
     public static Version? TryParseVersionTolerant(this string value)
     {
         var versionChars = GetVersion(value).ToArray();
-        if (versionChars.Any() && Version.TryParse(new string(versionChars), out var versionObj))
+        if (versionChars.Length > 0 && Version.TryParse(new string(versionChars), out var versionObj))
         {
             return versionObj;
         }
@@ -127,11 +136,5 @@ public static partial class StringExtensions
             }
         }
         return null;
-    }
-
-    [Obsolete("use TryParseVersionTolerant", true)]
-    public static Version? VersionTryParse(string version)
-    {
-        return TryParseVersionTolerant(version);
     }
 }

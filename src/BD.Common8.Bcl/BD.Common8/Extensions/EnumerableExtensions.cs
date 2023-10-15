@@ -1,4 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
+using SR = BD.Common8.Resources.SR;
 
 namespace BD.Common8.Extensions;
 
@@ -14,6 +14,7 @@ public static partial class EnumerableExtensions
     /// <param name="first">一个用于比较 second 的 <see cref="IEnumerable{T}"/></param>
     /// <param name="second">要与第一个序列进行比较的 <see cref="IEnumerable{T}"/></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool SequenceEqual_Nullable<TSource>([NotNullWhen(true)] this IEnumerable<TSource>? first, IEnumerable<TSource>? second)
         => first == null ? second == null : second == null ? first == null : first.SequenceEqual(second);
 
@@ -23,6 +24,7 @@ public static partial class EnumerableExtensions
     /// <typeparam name="TSource">source 的元素类型</typeparam>
     /// <param name="source">要检查是否为空的 <see cref="IEnumerable{T}"/></param>
     /// <returns>如果源序列包含任何元素，则为 <see langword="true"/>；否则为 <see langword="false"/></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool Any_Nullable<TSource>([NotNullWhen(true)] this IEnumerable<TSource>? source) => source is not null && source.Any();
 
     /// <summary>
@@ -32,6 +34,7 @@ public static partial class EnumerableExtensions
     /// <param name="source"></param>
     /// <param name="predicate"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool Any_Nullable<TSource>([NotNullWhen(true)] this IEnumerable<TSource>? source, Func<TSource, bool> predicate) => source is not null && source.Any(predicate);
 
     /// <summary>
@@ -41,9 +44,11 @@ public static partial class EnumerableExtensions
     /// <typeparam name="TKey"></typeparam>
     /// <param name="source"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Dictionary<TKey, TValue> ReverseKeyValue<TValue, TKey>(this IEnumerable<KeyValuePair<TValue, TKey>> source) where TKey : notnull => source.ToDictionary(k => k.Value, v => v.Key);
 
     /// <inheritdoc cref="List{T}.AddRange(IEnumerable{T})"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void AddRange<T>(this IList<T> ts, IEnumerable<T> collection)
     {
         if (ts is List<T> list)
@@ -65,6 +70,7 @@ public static partial class EnumerableExtensions
     /// <param name="source"></param>
     /// <param name="keySelector"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IEnumerable<TSource> Distinct<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
     {
         var set = new HashSet<TKey>(EqualityComparer<TKey>.Default);
@@ -83,6 +89,7 @@ public static partial class EnumerableExtensions
     /// <param name="source"></param>
     /// <param name="keySelector"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
     {
 #pragma warning disable SA1010 // Opening square brackets should be spaced correctly
@@ -94,10 +101,21 @@ public static partial class EnumerableExtensions
     }
 
     /// <inheritdoc cref="string.Join{T}(string, IEnumerable{T})"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string ToString<T>(this IEnumerable<T> source, string separator) => string.Join(separator, source);
 
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
     /// <inheritdoc cref="string.Join{T}(char, IEnumerable{T})"/>
-    public static string ToString<T>(this IEnumerable<T> source, char separator) => string.Join(separator, source);
+#else
+    /// <inheritdoc cref="string.Join{T}(string, IEnumerable{T})"/>
+#endif
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string ToString<T>(this IEnumerable<T> source, char separator)
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+        => string.Join(separator, source);
+#else
+        => string.Join(separator.ToString(), source);
+#endif
 
     /// <summary>
     /// 从 System.Collections.Generic.IEnumerable 创建 System.Collections.Generic.Dictionary (重复键使用第一个)
@@ -109,6 +127,7 @@ public static partial class EnumerableExtensions
     /// <param name="keyGetter"></param>
     /// <param name="valueGetter"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Dictionary<TKey, TValue> ToDictionaryIgnoreRepeat<TElement, TKey, TValue>(this IEnumerable<TElement> source, Func<TElement, TKey> keyGetter, Func<TElement, TValue> valueGetter) where TKey : notnull
     {
         var dict = new Dictionary<TKey, TValue>();
@@ -123,6 +142,7 @@ public static partial class EnumerableExtensions
     }
 
     /// <inheritdoc cref="List{T}.ForEach(Action{T})"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void ForEach<T>(this IEnumerable<T> ts, Action<T> action)
     {
         if (ts is List<T> list)
@@ -135,6 +155,7 @@ public static partial class EnumerableExtensions
     }
 
     /// <inheritdoc cref="List{T}.ForEach(Action{T})"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void FindAllForEach<T>(this IEnumerable<T> ts, Predicate<T> match, Action<T> action)
     {
         foreach (var item in ts)

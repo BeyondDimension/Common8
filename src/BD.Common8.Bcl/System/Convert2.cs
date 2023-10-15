@@ -1,6 +1,3 @@
-using System.Globalization;
-using System.Linq.Expressions;
-
 namespace System;
 
 /// <inheritdoc cref="System.Convert"/>
@@ -11,6 +8,7 @@ public static partial class Convert2
     /// </summary>
     /// <param name="s">The string to convert.</param>
     /// <returns>An array of 8-bit unsigned integers that is equivalent to s.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte[] FromHexString(string s)
 #if HEXMATE
         => HexMate.Convert.FromHexString(s);
@@ -28,6 +26,7 @@ public static partial class Convert2
 #endif
 
     /// <inheritdoc cref="System.Convert"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static TOut Convert<TOut, TIn>(TIn value)
     {
         var parameter = Expression.Parameter(typeof(TIn), null);
@@ -42,16 +41,22 @@ public static partial class Convert2
     /// </summary>
     public static Func<IConvertible?, Type, object?>? CustomConvertObject { private get; set; }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [RequiresUnreferencedCode(Serializable.SerializationUnreferencedCodeMessage)]
+    [RequiresDynamicCode(Serializable.SerializationRequiresDynamicCodeMessage)]
     static T? ConvertObject<T>(IConvertible value)
     {
         var custom = CustomConvertObject;
         if (custom != null)
             return custom(value, typeof(T)) is T t ? t : default;
-        var jsonString = value.ToString(CultureInfo.InvariantCulture);
-        return Serializable.DJSON<T>(jsonString);
+        var json = value.ToString(CultureInfo.InvariantCulture);
+        return Serializable.DJSON<T>(json);
     }
 
     /// <inheritdoc cref="System.Convert"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [RequiresUnreferencedCode(Serializable.SerializationUnreferencedCodeMessage)]
+    [RequiresDynamicCode(Serializable.SerializationRequiresDynamicCodeMessage)]
     public static T? Convert<T>(IConvertible? value) where T : notnull
     {
         if (value == default)
@@ -79,3 +84,19 @@ public static partial class Convert2
         };
     }
 }
+
+#if DEBUG
+[Obsolete("use Convert2", true)]
+public static partial class ConvertibleHelper
+{
+    /// <inheritdoc cref="Convert2.Convert{TOut, TIn}(TIn)"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static TOut Convert<TOut, TIn>(TIn value) => Convert2.Convert<TOut, TIn>(value);
+
+    /// <inheritdoc cref="Convert2.Convert{T}(IConvertible?)"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [RequiresUnreferencedCode(Serializable.SerializationUnreferencedCodeMessage)]
+    [RequiresDynamicCode(Serializable.SerializationRequiresDynamicCodeMessage)]
+    public static T? Convert<T>(IConvertible? value) where T : notnull => Convert2.Convert<T>(value);
+}
+#endif

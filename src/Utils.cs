@@ -1,3 +1,5 @@
+global using static BD.Common8.ProjectUtils;
+
 namespace BD.Common8;
 
 /// <summary>

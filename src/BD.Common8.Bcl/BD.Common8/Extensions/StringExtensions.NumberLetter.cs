@@ -1,7 +1,6 @@
-// ReSharper disable once CheckNamespace
 namespace System;
 
-public static partial class StringExtensions
+public static partial class StringExtensions // NumberLetter
 {
     /// <summary>
     /// 字符串是否是一个数字（可以零开头 无符号不能+-.）
@@ -9,8 +8,13 @@ public static partial class StringExtensions
     /// <param name="input"></param>
     /// <returns></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsDigital(this string input) => input?.All(IsDigital) ?? false;
+    public static bool IsDigital(this string? input) => input?.All(IsDigital) ?? false;
 
+    /// <summary>
+    /// 字符是否是一个数字 0~9
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsDigital(this char input) => input >= '0' && input <= '9';
 

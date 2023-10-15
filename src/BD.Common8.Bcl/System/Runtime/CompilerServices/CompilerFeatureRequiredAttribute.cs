@@ -4,7 +4,6 @@
 // https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/CompilerFeatureRequiredAttribute.cs
 
 #if NETFRAMEWORK || NETSTANDARD || !NET7_0_OR_GREATER
-
 namespace System.Runtime.CompilerServices;
 
 /// <summary>
@@ -17,6 +16,7 @@ internal sealed class CompilerFeatureRequiredAttribute : Attribute
     /// Initializes a new instance of the <see cref="CompilerFeatureRequiredAttribute"/> class.
     /// </summary>
     /// <param name="featureName"></param>
+#pragma warning disable IDE0290 // 使用主构造函数
     public CompilerFeatureRequiredAttribute(string featureName)
     {
         FeatureName = featureName;

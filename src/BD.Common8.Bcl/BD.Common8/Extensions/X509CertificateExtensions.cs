@@ -1,10 +1,10 @@
-// ReSharper disable once CheckNamespace
-using BD.Common8.Extensions;
+#pragma warning disable SA1600 // Elements should be documented
 
 namespace BD.Common8.Extensions;
 
-public static class X509CertificateExtensions
+public static partial class X509CertificateExtensions
 {
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static byte[] GetCertHashCompatImpl(this X509Certificate certificate, HashAlgorithmName hashAlgorithm)
     {
         // https://github.com/dotnet/runtime/blob/v6.0.4/src/libraries/System.Security.Cryptography.X509Certificates/src/System/Security/Cryptography/X509Certificates/X509Certificate.cs#L362
@@ -13,8 +13,10 @@ public static class X509CertificateExtensions
         return hasher.GetHashAndReset();
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte[] GetCertHashCompat(this X509Certificate certificate, HashAlgorithmName hashAlgorithm)
     {
+#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER || NET48_OR_GREATER
         try
         {
             return certificate.GetCertHash(hashAlgorithm);
@@ -23,10 +25,15 @@ public static class X509CertificateExtensions
         {
             return certificate.GetCertHashCompatImpl(hashAlgorithm);
         }
+#else
+        return certificate.GetCertHashCompatImpl(hashAlgorithm);
+#endif
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string GetCertHashStringCompat(this X509Certificate certificate, HashAlgorithmName hashAlgorithm)
     {
+#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER || NET48_OR_GREATER
         try
         {
             return certificate.GetCertHashString(hashAlgorithm);
@@ -36,11 +43,15 @@ public static class X509CertificateExtensions
             // https://github.com/dotnet/runtime/blob/main/src/libraries/System.Security.Cryptography/src/System/Security/Cryptography/X509Certificates/X509Certificate.cs#L408
             return certificate.GetCertHashCompatImpl(hashAlgorithm).ToHexString();
         }
+#else
+        return certificate.GetCertHashCompatImpl(hashAlgorithm).ToHexString();
+#endif
     }
 
     const string BEGIN_CERTIFICATE_SIGIL = "-----BEGIN CERTIFICATE-----";
     const string END_CERTIFICATE_SIGIL = "-----END CERTIFICATE-----";
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string GetPublicPemCertificateString(this X509Certificate2 certificate)
     {
         var value = certificate.Export(X509ContentType.Cert);
@@ -52,24 +63,7 @@ public static class X509CertificateExtensions
         return builder.ToString();
     }
 
-    //[Obsolete("warn AppContext.BaseDirectory ?", true)]
-    //public static string GetPrivatePemCertificateString(this X509Certificate2 @this)
-    //{
-    //    if (@this.PrivateKey is RSACryptoServiceProvider pkey)
-    //    {
-    //        var keyPair = DotNetUtilities.GetRsaKeyPair(pkey);
-    //        using TextWriter tw = new StreamWriter(Path.Combine(IOPath.BaseDirectory, @this.IssuerName.Name + ".key"), false, EncodingCache.UTF8NoBOM);
-    //        PemWriter pw = new PemWriter(tw);
-    //        pw.WriteObject(keyPair.Private);
-    //        tw.Flush();
-    //        return tw.ToString();
-    //    }
-    //    else
-    //    {
-    //        throw new InvalidCastException(nameof(X509Certificate2.PrivateKey));
-    //    }
-    //}
-
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IReadOnlyList<string> GetSubjectAlternativeNames(this X509Certificate2 certificate)
     {
         foreach (X509Extension extension in certificate.Extensions)
@@ -85,9 +79,10 @@ public static class X509CertificateExtensions
         return Array.Empty<string>();
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void SaveCerCertificateFile(this X509Certificate2 certificate, string pathOrName)
     {
         var value = certificate.GetPublicPemCertificateString();
-        File.WriteAllText(pathOrName, value, EncodingCache.UTF8NoBOM);
+        File.WriteAllText(pathOrName, value, Encoding2.UTF8NoBOM);
     }
 }

@@ -1,7 +1,3 @@
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Text;
-using System.Text;
-
 namespace BD.Common8.SourceGenerator.SrcPackage;
 
 [Generator]
@@ -17,6 +13,7 @@ public sealed partial class SourceGenerator : ISourceGenerator
         path ??= typeof(SourceGenerator).Assembly.Location;
         try
         {
+#pragma warning disable RS1035 // 不要使用禁用于分析器的 API
             if (!Directory.EnumerateFiles(path, "*.nupkg").Any())
             {
                 var parent = Directory.GetParent(path);
@@ -24,6 +21,7 @@ public sealed partial class SourceGenerator : ISourceGenerator
                     return string.Empty;
                 return GetPackageRootPath(parent.FullName);
             }
+#pragma warning restore RS1035 // 不要使用禁用于分析器的 API
         }
         catch
         {
@@ -43,6 +41,7 @@ public sealed partial class SourceGenerator : ISourceGenerator
         if (string.IsNullOrWhiteSpace(rootPath))
             return;
         var srcDirPath = Path.Combine(rootPath, "src");
+#pragma warning disable RS1035 // 不要使用禁用于分析器的 API
         if (!Directory.Exists(srcDirPath))
             return;
         foreach (var item in Directory.EnumerateFiles(srcDirPath, "*.cs"))
@@ -51,6 +50,7 @@ public sealed partial class SourceGenerator : ISourceGenerator
             var sourceCode = File.ReadAllBytes(item);
             context.AddSource(fileName, SourceText.From(sourceCode, sourceCode.Length, Encoding.UTF8));
         }
+#pragma warning restore RS1035 // 不要使用禁用于分析器的 API
     }
 
     /// <inheritdoc cref="ISourceGenerator.Initialize(GeneratorInitializationContext)"/>

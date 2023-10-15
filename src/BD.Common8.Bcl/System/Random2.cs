@@ -34,22 +34,28 @@ public static partial class Random2
     // https://github.com/dotnet/runtime/blob/v6.0.6/src/libraries/System.Private.CoreLib/src/System/Random.cs#L220
 
     /// <inheritdoc cref="Random.Shared"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Random Shared() => Random.Shared;
 
 #endif
 
-    /// <inheritdoc cref="Random.Next"/>
+    /// <inheritdoc cref="Random.Next()"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int Next() => Shared().Next();
 
     /// <inheritdoc cref="Random.Next(int)"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int Next(int maxValue) => Shared().Next(maxValue);
 
     /// <inheritdoc cref="Random.Next(int, int)"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int Next(int minValue, int maxValue) => Shared().Next(minValue, maxValue);
 
     /// <inheritdoc cref="Random.NextDouble"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static double NextDouble() => Shared().NextDouble();
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static char RandomCharAt(string s, int index)
     {
         if (index == s.Length) index = 0;
@@ -126,5 +132,6 @@ public static partial class Random2
     /// <typeparam name="T"></typeparam>
     /// <param name="items"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T GetRandomItem<T>(this IReadOnlyList<T> items) => items[Next(items.Count)];
 }

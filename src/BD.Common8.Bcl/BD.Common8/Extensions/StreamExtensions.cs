@@ -1,7 +1,3 @@
-using System.Diagnostics;
-using System.Globalization;
-using System.Text;
-
 namespace BD.Common8.Extensions;
 
 /// <summary>
@@ -14,9 +10,17 @@ public static partial class StreamExtensions
     /// </summary>
     /// <param name="stream"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte ReadValueU8(this Stream stream)
     {
-        return (byte)stream.ReadByte();
+        var readByte = stream.ReadByte();
+        if (readByte == -1)
+#pragma warning disable IDE0079 // 请删除不必要的忽略
+#pragma warning disable CA2208 // 正确实例化参数异常
+            throw new ArgumentOutOfRangeException(nameof(readByte));
+#pragma warning restore CA2208 // 正确实例化参数异常
+#pragma warning restore IDE0079 // 请删除不必要的忽略
+        return (byte)readByte;
     }
 
     /// <summary>
@@ -24,6 +28,7 @@ public static partial class StreamExtensions
     /// </summary>
     /// <param name="stream"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int ReadValueS32(this Stream stream)
     {
         var data = new byte[4];
@@ -37,6 +42,7 @@ public static partial class StreamExtensions
     /// </summary>
     /// <param name="stream"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static uint ReadValueU32(this Stream stream)
     {
         var data = new byte[4];
@@ -50,6 +56,7 @@ public static partial class StreamExtensions
     /// </summary>
     /// <param name="stream"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ulong ReadValueU64(this Stream stream)
     {
         var data = new byte[8];
@@ -63,6 +70,7 @@ public static partial class StreamExtensions
     /// </summary>
     /// <param name="stream"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static float ReadValueF32(this Stream stream)
     {
         var data = new byte[4];
@@ -118,20 +126,16 @@ public static partial class StreamExtensions
     /// </summary>
     /// <param name="stream"></param>
     /// <returns></returns>
-    public static string ReadStringAscii(this Stream stream)
-    {
-        return stream.ReadStringInternalDynamic(Encoding.ASCII, '\0');
-    }
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string ReadStringAscii(this Stream stream) => stream.ReadStringInternalDynamic(Encoding.ASCII, '\0');
 
     /// <summary>
     /// 从流中读取一个 <see cref="string"/>，使用 <see cref="Encoding.UTF8"/> 编码
     /// </summary>
     /// <param name="stream"></param>
     /// <returns></returns>
-    public static string ReadStringUnicode(this Stream stream)
-    {
-        return stream.ReadStringInternalDynamic(Encoding.UTF8, '\0');
-    }
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string ReadStringUnicode(this Stream stream) => stream.ReadStringInternalDynamic(Encoding.UTF8, '\0');
 
     const int DefaultBufferSize = 1024;
 
@@ -143,6 +147,7 @@ public static partial class StreamExtensions
     /// <param name="bufferSize"></param>
     /// <param name="leaveOpen"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static StreamWriter GetWriter(this Stream stream, Encoding? encoding = null, int bufferSize = -1, bool leaveOpen = false)
     {
         try
@@ -153,7 +158,7 @@ public static partial class StreamExtensions
         }
         catch (Exception e) when (e is ArgumentNullException || e is ArgumentOutOfRangeException)
         {
-            encoding ??= EncodingCache.UTF8NoBOM;
+            encoding ??= Encoding2.UTF8NoBOM;
             if (bufferSize == -1)
             {
                 bufferSize = DefaultBufferSize;

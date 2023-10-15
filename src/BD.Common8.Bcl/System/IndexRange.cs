@@ -1,12 +1,13 @@
 // https://github.com/dotnet/runtime/blob/419e949d258ecee4c40a460fb09c66d974229623/src/libraries/System.Private.CoreLib/src/System/Index.cs
 // https://github.com/dotnet/runtime/blob/419e949d258ecee4c40a460fb09c66d974229623/src/libraries/System.Private.CoreLib/src/System/Range.cs
 
-#if !NETCOREAPP
+#if !NETCOREAPP && !NETSTANDARD2_1_OR_GREATER
 
 #pragma warning disable IDE0079 // 请删除不必要的忽略
 #pragma warning disable IDE0005 // 删除不必要的 using 指令
 #pragma warning disable SA1209 // Using alias directives should be placed after other using directives
 #pragma warning disable SA1211 // Using alias directives should be ordered alphabetically by alias name
+#pragma warning disable IDE0130 // 命名空间与文件夹结构不匹配
 
 using System.Runtime.CompilerServices;
 
@@ -242,9 +243,7 @@ namespace System
     }
 }
 
-#pragma warning disable IDE0130 // 命名空间与文件夹结构不匹配
 namespace System.Runtime.CompilerServices
-#pragma warning restore IDE0130 // 命名空间与文件夹结构不匹配
 {
     /// <summary>
     /// 提供一组为编译器提供支持的静态方法和属性。 此类不能被继承。
@@ -261,10 +260,7 @@ namespace System.Runtime.CompilerServices
         /// <exception cref="ArgumentNullException"></exception>
         public static T[] GetSubArray<T>(T[] array, Range range)
         {
-            if (array == null)
-            {
-                throw new ArgumentNullException(nameof(array));
-            }
+            array = array ?? throw new ArgumentNullException(nameof(array));
 
             (int offset, int length) = range.GetOffsetAndLength(array.Length);
 

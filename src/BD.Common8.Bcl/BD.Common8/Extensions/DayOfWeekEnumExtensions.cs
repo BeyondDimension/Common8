@@ -1,4 +1,4 @@
-using SR = BD.Common8.Bcl.Properties.Resources;
+using SR = BD.Common8.Resources.SR;
 
 namespace BD.Common8.Extensions;
 
@@ -13,7 +13,8 @@ public static partial class DayOfWeekEnumExtensions
     /// <param name="dayOfWeek"></param>
     /// <param name="format_short_or_long">使用[(<see langword="true"/>)短]或[(<see langword="false"/>)长]的格式，默认使用长格式</param>
     /// <returns></returns>
-    public static string ToString2(this DayOfWeek dayOfWeek, bool format_short_or_long = false)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string ToDisplayString(this DayOfWeek dayOfWeek, bool format_short_or_long = false)
         => dayOfWeek switch
         {
             DayOfWeek.Monday => format_short_or_long ? SR.DayOfWeek_S1 : SR.DayOfWeek_L1,
@@ -25,4 +26,10 @@ public static partial class DayOfWeekEnumExtensions
             DayOfWeek.Sunday => format_short_or_long ? SR.DayOfWeek_S0 : SR.DayOfWeek_L0,
             _ => throw new ArgumentOutOfRangeException(nameof(dayOfWeek), dayOfWeek, null),
         };
+
+#if DEBUG
+    /// <inheritdoc cref="ToDisplayString(DayOfWeek, bool)"/>
+    [Obsolete("use ToDisplayString(DayOfWeek, bool)", true)]
+    public static string ToString2(this DayOfWeek dayOfWeek, bool format_short_or_long = false) => ToDisplayString(dayOfWeek, format_short_or_long);
+#endif
 }

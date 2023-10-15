@@ -1,6 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-using System.IO.Compression;
-
 namespace BD.Common8.Extensions;
 
 public static partial class ByteArrayExtensions // Compression
@@ -12,6 +9,7 @@ public static partial class ByteArrayExtensions // Compression
     /// <param name="compressionLevel"></param>
     /// <returns></returns>
     [return: NotNullIfNotNull(nameof(buffer))]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte[]? CompressByteArray(this byte[]? buffer, CompressionLevel? compressionLevel = null)
         => buffer.CompressByteArray(s => compressionLevel.HasValue ? new GZipStream(s, compressionLevel.Value, true) : new GZipStream(s, CompressionMode.Compress, true));
 
@@ -23,6 +21,7 @@ public static partial class ByteArrayExtensions // Compression
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [return: NotNullIfNotNull(nameof(buffer))]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ValueTask<byte[]?> CompressByteArrayAsync(this byte[]? buffer, CompressionLevel? compressionLevel = null, CancellationToken cancellationToken = default)
         => buffer.CompressByteArrayAsync(s => compressionLevel.HasValue ? new GZipStream(s, compressionLevel.Value, true) : new GZipStream(s, CompressionMode.Compress, true), cancellationToken);
 
@@ -32,6 +31,7 @@ public static partial class ByteArrayExtensions // Compression
     /// <param name="value"></param>
     /// <returns></returns>
     [return: NotNullIfNotNull(nameof(value))]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte[]? DecompressByteArray(this byte[]? value) => value.DecompressByteArray(s => new GZipStream(s, CompressionMode.Decompress));
 
     /// <summary>
@@ -41,6 +41,7 @@ public static partial class ByteArrayExtensions // Compression
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [return: NotNullIfNotNull(nameof(value))]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ValueTask<byte[]?> DecompressByteArrayAsync(this byte[]? value, CancellationToken cancellationToken = default) => value.DecompressByteArrayAsync(s => new GZipStream(s, CompressionMode.Decompress), cancellationToken);
 
 #if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
@@ -51,6 +52,7 @@ public static partial class ByteArrayExtensions // Compression
     /// <param name="compressionLevel"></param>
     /// <returns></returns>
     [return: NotNullIfNotNull(nameof(buffer))]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte[]? CompressByteArrayByBrotli(this byte[]? buffer, CompressionLevel? compressionLevel = null)
         => buffer.CompressByteArray(s => compressionLevel.HasValue ? new BrotliStream(s, compressionLevel.Value, true) : new BrotliStream(s, CompressionMode.Compress, true));
 
@@ -62,6 +64,7 @@ public static partial class ByteArrayExtensions // Compression
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [return: NotNullIfNotNull(nameof(buffer))]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ValueTask<byte[]?> CompressByteArrayByBrotliAsync(this byte[]? buffer, CompressionLevel? compressionLevel = null, CancellationToken cancellationToken = default)
         => buffer.CompressByteArrayAsync(s => compressionLevel.HasValue ? new BrotliStream(s, compressionLevel.Value, true) : new BrotliStream(s, CompressionMode.Compress, true), cancellationToken);
 
@@ -71,6 +74,7 @@ public static partial class ByteArrayExtensions // Compression
     /// <param name="value"></param>
     /// <returns></returns>
     [return: NotNullIfNotNull(nameof(value))]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte[]? DecompressByteArrayByBrotli(this byte[]? value) => value.DecompressByteArray(s => new BrotliStream(s, CompressionMode.Decompress));
 
     /// <summary>
@@ -80,7 +84,8 @@ public static partial class ByteArrayExtensions // Compression
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [return: NotNullIfNotNull(nameof(value))]
-    public static ValueTask<byte[]?> DecompressByteArrayByBrotli(this byte[]? value, CancellationToken cancellationToken = default) => value.DecompressByteArrayAsync(s => new BrotliStream(s, CompressionMode.Decompress), cancellationToken);
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ValueTask<byte[]?> DecompressByteArrayByBrotliAsync(this byte[]? value, CancellationToken cancellationToken = default) => value.DecompressByteArrayAsync(s => new BrotliStream(s, CompressionMode.Decompress), cancellationToken);
 #endif
 
     static byte[]? CompressByteArray(
@@ -160,7 +165,11 @@ public static partial class ByteArrayExtensions // Compression
 
         using var memoryStream = new MemoryStream();
         var dataLength = BitConverter.ToInt32(value, 0);
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
         await memoryStream.WriteAsync(value.AsMemory(4, value.Length - 4), cancellationToken);
+#else
+        await memoryStream.WriteAsync(value, 4, value.Length - 4, cancellationToken);
+#endif
 
         var buffer = new byte[dataLength];
 

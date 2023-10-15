@@ -2,11 +2,11 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // https://github.com/dotnet/msbuild/blob/v17.8.0-preview-23418-03/src/Build/Utilities/SimpleVersion.cs
 
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
+#pragma warning disable IDE0079 // 请删除不必要的忽略
+#pragma warning disable CA1512 // 使用 ArgumentOutOfRangeException 引发帮助程序
+#pragma warning restore IDE0079 // 请删除不必要的忽略
 
-namespace System;
+namespace System.Runtime.Versioning;
 
 /// <summary>
 /// Simple replacement for System.Version used to implement version
@@ -169,10 +169,7 @@ public readonly struct SimpleVersion : IEquatable<SimpleVersion>, IComparable<Si
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(input);
 #else
-        if (input == null)
-        {
-            throw new ArgumentNullException(nameof(input));
-        }
+        input = input ?? throw new ArgumentNullException(nameof(input));
 #endif
 
         var span = RemoveTrivia(input);

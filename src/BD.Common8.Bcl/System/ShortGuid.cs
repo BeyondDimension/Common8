@@ -5,7 +5,6 @@
 #if NET7_0_OR_GREATER
 using gfoidl.Base64;
 #endif
-using System.Diagnostics;
 
 namespace System;
 
@@ -188,7 +187,7 @@ public struct ShortGuid
         }
 
 #if NET7_0_OR_GREATER
-        byte[] blob = Base64.Url.Decode(value.AsSpan());
+        byte[] blob = Base64.Url.Decode([.. value]);
 #else
         string base64 = value
             .Replace("_", "/")

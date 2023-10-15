@@ -1,5 +1,3 @@
-using System.Reflection;
-
 namespace BD.Common8.SourceGenerator.Templates.Abstractions;
 
 /// <summary>

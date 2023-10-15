@@ -11,6 +11,7 @@ public static partial class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value"></param>
     /// <returns>如果 enumType 中的某个常量的值等于 value，则为 <see langword="true"/>；否则为 <see langword="false"/></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsDefined<TEnum>(this TEnum value) where TEnum : struct, Enum
 #if NET5_0_OR_GREATER
         => Enum.IsDefined(value);
@@ -24,6 +25,7 @@ public static partial class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static TEnum ConvertToEnum<TEnum>(this sbyte value)
         where TEnum : Enum
         => Convert2.Convert<TEnum, sbyte>(value);
@@ -34,6 +36,7 @@ public static partial class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static TEnum ConvertToEnum<TEnum>(this byte value)
         where TEnum : Enum
         => Convert2.Convert<TEnum, byte>(value);
@@ -44,6 +47,7 @@ public static partial class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static TEnum ConvertToEnum<TEnum>(this ushort value)
         where TEnum : Enum
         => Convert2.Convert<TEnum, ushort>(value);
@@ -54,6 +58,7 @@ public static partial class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static TEnum ConvertToEnum<TEnum>(this short value)
         where TEnum : Enum
         => Convert2.Convert<TEnum, short>(value);
@@ -64,6 +69,7 @@ public static partial class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static TEnum ConvertToEnum<TEnum>(this int value)
         where TEnum : Enum
         => Convert2.Convert<TEnum, int>(value);
@@ -74,6 +80,7 @@ public static partial class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static TEnum ConvertToEnum<TEnum>(this uint value)
         where TEnum : Enum
         => Convert2.Convert<TEnum, uint>(value);
@@ -84,6 +91,7 @@ public static partial class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static TEnum ConvertToEnum<TEnum>(this long value)
         where TEnum : Enum
         => Convert2.Convert<TEnum, long>(value);
@@ -94,6 +102,7 @@ public static partial class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static TEnum ConvertToEnum<TEnum>(this ulong value)
         where TEnum : Enum
         => Convert2.Convert<TEnum, ulong>(value);
@@ -104,6 +113,7 @@ public static partial class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static sbyte ConvertToSByte<TEnum>(this TEnum value)
         where TEnum : Enum
         => Convert2.Convert<sbyte, TEnum>(value);
@@ -114,6 +124,7 @@ public static partial class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte ConvertToByte<TEnum>(this TEnum value)
         where TEnum : Enum
         => Convert2.Convert<byte, TEnum>(value);
@@ -124,6 +135,7 @@ public static partial class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ushort ConvertToUInt16<TEnum>(this TEnum value)
         where TEnum : Enum
         => Convert2.Convert<ushort, TEnum>(value);
@@ -134,6 +146,7 @@ public static partial class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static short ConvertToInt16<TEnum>(this TEnum value)
         where TEnum : Enum
         => Convert2.Convert<short, TEnum>(value);
@@ -144,6 +157,7 @@ public static partial class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static uint ConvertToUInt32<TEnum>(this TEnum value)
         where TEnum : Enum
         => Convert2.Convert<uint, TEnum>(value);
@@ -154,6 +168,7 @@ public static partial class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int ConvertToInt32<TEnum>(this TEnum value)
         where TEnum : Enum
         => Convert2.Convert<int, TEnum>(value);
@@ -164,6 +179,7 @@ public static partial class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ulong ConvertToUInt64<TEnum>(this TEnum value)
         where TEnum : Enum
         => Convert2.Convert<ulong, TEnum>(value);
@@ -174,6 +190,7 @@ public static partial class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static long ConvertToInt64<TEnum>(this TEnum value)
         where TEnum : Enum
         => Convert2.Convert<long, TEnum>(value);

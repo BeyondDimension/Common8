@@ -4,21 +4,27 @@
 	<Import Project="..\Serializable.props" />
 
 	<PropertyGroup>
-		<TargetFrameworks>net45;net461;net462;net47;netstandard2.0;netstandard2.1;net7.0;net7.0-windows;net8.0;net8.0-windows</TargetFrameworks>
+		<!--<TargetFrameworks>net45;net461;net462;net47;netstandard2.0;netstandard2.1;net7.0;net7.0-windows;net8.0;net8.0-windows</TargetFrameworks>-->
+		<!--<TargetFrameworks>net461;net462;net47;netstandard2.0;netstandard2.1;net7.0;net7.0-windows;net8.0;net8.0-windows</TargetFrameworks>-->
+		<TargetFrameworks>$(Library_TargetFrameworks)</TargetFrameworks>
 		<RootNamespace></RootNamespace>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Nito.Comparers" />
 		<PackageReference Include="Crc32.NET" />
-		<PackageReference Include="Newtonsoft.Json" PrivateAssets="All" />
+		<PackageReference Include="Newtonsoft.Json" />
+		<PackageReference Include="Splat.Drawing" />
+		<PackageReference Include="Polly" />
 	</ItemGroup>
 
-	<!-- != .NET Framework 3.5 ~ 4.6.1 && != .NET Standard 1.X -->
-	<ItemGroup Condition=" (!$(TargetFramework.StartsWith('net35')) AND !$(TargetFramework.StartsWith('net40')) AND !$(TargetFramework.StartsWith('net45')) AND !$(TargetFramework.StartsWith('net451')) AND !$(TargetFramework.StartsWith('net452')) AND !$(TargetFramework.StartsWith('net46')) AND !$(TargetFramework.StartsWith('netstandard1'))) OR $(TargetFramework.StartsWith('net462')) ">
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" PrivateAssets="All" />
-		<PackageReference Include="Microsoft.Extensions.Logging" PrivateAssets="All" />
-		<PackageReference Include="System.IO.Pipelines" PrivateAssets="All" />
+	<!-- != .NET Framework 3.5 ~ 4.6 && != .NET Standard 1.X -->
+	<ItemGroup Condition=" (!$(TargetFramework.StartsWith('net35')) AND !$(TargetFramework.StartsWith('net40')) AND !$(TargetFramework.StartsWith('net45')) AND !$(TargetFramework.StartsWith('net451')) AND !$(TargetFramework.StartsWith('net452')) AND !$(TargetFramework.EndsWith('net46')) AND !$(TargetFramework.StartsWith('netstandard1'))) OR $(TargetFramework.StartsWith('net462')) ">
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+		<PackageReference Include="Microsoft.Extensions.Logging" />
+		<PackageReference Include="System.IO.Pipelines" />
+		<PackageReference Include="CommunityToolkit.HighPerformance" />
 	</ItemGroup>
 
 	<!-- != .NET Framework && != .NET Standard && >= .NET 7 -->
@@ -36,5 +42,21 @@
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('net45')) OR $(TargetFramework.StartsWith('net46')) ">
 		<PackageReference Include="System.ValueTuple" />
 	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<PackageReference Include="PInvoke.IPHlpApi" />
+		<PackageReference Include="PInvoke.AdvApi32" />
+		<PackageReference Include="PInvoke.Kernel32" />
+		<PackageReference Include="Vanara.PInvoke.WinHTTP" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BD.Common8.SourceGenerator.Resx\BD.Common8.SourceGenerator.Resx.csproj">
+			<OutputItemType>Analyzer</OutputItemType>
+			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+		</ProjectReference>
+	</ItemGroup>
+
+	<Import Project="..\..\res\i18n\BD.Common8.Bcl.props" />
 
 </Project>

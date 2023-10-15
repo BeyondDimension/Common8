@@ -1,19 +1,20 @@
-#if !DEL_SYS_IO_PIPELINES && (!NETFRAMEWORK || (NETSTANDARD && NETSTANDARD2_0_OR_GREATER))
+#if !DEL_SYS_IO_PIPELINES && NET6_0_OR_GREATER
 using System.IO.Pipelines;
 
 namespace BD.Common8.Extensions;
 
 /// <summary>
-/// Ìá¹©¶Ô <see cref="IDuplexPipe"/> ÀàĞÍµÄÀ©Õ¹º¯Êı
+/// æä¾›å¯¹ <see cref="IDuplexPipe"/> ç±»å‹çš„æ‰©å±•å‡½æ•°
 /// </summary>
 public static partial class DuplexPipeStreamExtensions
 {
     /// <summary>
-    /// ½« <see cref="IDuplexPipe"/> ×ª»»Îª <see cref="Stream"/>
+    /// å°† <see cref="IDuplexPipe"/> è½¬æ¢ä¸º <see cref="Stream"/>
     /// </summary>
     /// <param name="duplexPipe"></param>
     /// <param name="throwOnCancelled"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Stream AsStream(this IDuplexPipe duplexPipe, bool throwOnCancelled = false)
         => new DuplexPipeStream(duplexPipe, throwOnCancelled);
 }

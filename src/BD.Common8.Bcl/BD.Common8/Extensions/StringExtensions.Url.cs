@@ -1,18 +1,16 @@
-using System.Text.RegularExpressions;
-
-// ReSharper disable once CheckNamespace
 namespace System;
 
-public static partial class StringExtensions
+public static partial class StringExtensions // Url
 {
     /// <summary>
     /// 返回当前最后相对 URL
     /// </summary>
     /// <param name="url"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string GetLastRelativeUrl(this string url)
     {
-        int index = url.LastIndexOf("/");
+        int index = url.LastIndexOf('/');
 
         if (index != -1)
         {

@@ -1,7 +1,6 @@
-// ReSharper disable once CheckNamespace
 namespace System;
 
-public static partial class StringExtensions
+public static partial class StringExtensions // Replace
 {
     /// <summary>
     /// 移除字符串内所有\r \n \t

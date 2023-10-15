@@ -632,3 +632,14 @@ iOSInjectionProject/
 
 # macOS
 .DS_Store
+
+###############
+#   docfx folder   #
+###############
+/**/DROP/
+/**/TEMP/
+/**/packages/
+/**/bin/
+/**/obj/
+_site
+

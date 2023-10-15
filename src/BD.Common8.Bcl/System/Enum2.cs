@@ -1,8 +1,3 @@
-using System.ComponentModel;
-#if NET7_0_OR_GREATER
-using System.Diagnostics.CodeAnalysis;
-#endif
-
 namespace System;
 
 /// <inheritdoc cref="Enum"/>
@@ -13,6 +8,7 @@ public static partial class Enum2
     /// </summary>
     /// <typeparam name="TEnum"></typeparam>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static TEnum[] GetAll<TEnum>() where TEnum : struct, Enum =>
 #if !NET5_0_OR_GREATER
         (TEnum[])Enum.GetValues(typeof(TEnum));
@@ -22,6 +18,7 @@ public static partial class Enum2
 
 #if DEBUG
     /// <inheritdoc cref="Enum.GetValues(Type)"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [Obsolete("use Enum.GetValues(Type)", true)]
 #if NET7_0_OR_GREATER
     [RequiresDynamicCode("It might not be possible to create an array of the enum type at runtime. Use the GetValues<TEnum> overload or the GetValuesAsUnderlyingType method instead.")]
@@ -34,11 +31,13 @@ public static partial class Enum2
     /// </summary>
     /// <typeparam name="TEnum"></typeparam>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string[] GetAllStrings<TEnum>()
         where TEnum : struct, Enum
         => GetAll<TEnum>().Select(x => x.ToString()).ToArray();
 
     /// <inheritdoc cref="GetAllStrings{TEnum}()"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #if NET7_0_OR_GREATER
     [RequiresDynamicCode("It might not be possible to create an array of the enum type at runtime. Use the GetValues<TEnum> overload or the GetValuesAsUnderlyingType method instead.")]
 #endif
@@ -61,11 +60,13 @@ public static partial class Enum2
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IEnumerable<TEnum> FlagsSplit<TEnum>(TEnum value)
         where TEnum : struct, Enum
         => GetAll<TEnum>().Where(x => value.HasFlag(x)).ToArray();
 
     /// <inheritdoc cref="FlagsSplit{TEnum}(TEnum)"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #if NET7_0_OR_GREATER
     [RequiresDynamicCode("It might not be possible to create an array of the enum type at runtime. Use the GetValues<TEnum> overload or the GetValuesAsUnderlyingType method instead.")]
 #endif
@@ -83,6 +84,7 @@ public static partial class Enum2
     }
 
     /// <inheritdoc cref="Convert"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int ConvertToInt32<TEnum>(TEnum value)
         where TEnum : struct, Enum
         => Convert2.Convert<int, TEnum>(value);
@@ -95,6 +97,7 @@ public static partial class Enum2
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="value">要获取描述的枚举值</param>
     /// <returns>指定枚举值的描述</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string? GetDescription<TEnum>(this TEnum value)
         where TEnum : struct, Enum
     {
@@ -122,6 +125,7 @@ public static partial class Enum2
     }
 
     /// <inheritdoc cref="GetDescription{TEnum}(TEnum)"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string? GetDescription(this Enum value)
     {
         var enumType = value.GetType();

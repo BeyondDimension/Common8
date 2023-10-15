@@ -1,5 +1,3 @@
-using System.Windows.Input;
-
 namespace BD.Common8.Extensions;
 
 /// <summary>
@@ -12,6 +10,7 @@ public static partial class CommandExtensions
     /// </summary>
     /// <param name="command"></param>
     /// <param name="parameter"></param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Invoke(
         this ICommand command,
         object? parameter = null)

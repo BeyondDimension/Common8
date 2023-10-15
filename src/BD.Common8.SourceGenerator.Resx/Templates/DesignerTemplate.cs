@@ -1,7 +1,4 @@
 using BD.Common8.SourceGenerator.Templates.Abstractions;
-using Microsoft.CodeAnalysis.Text;
-using System.Buffers;
-using System.Xml.Linq;
 
 namespace BD.Common8.SourceGenerator.Resx.Templates;
 
@@ -116,7 +113,7 @@ sealed class DesignerTemplate : TemplateBase
             stream.WriteNewLine();
             stream.WriteFormat(
 """
-[global::System.CodeDom.Compiler.GeneratedCodeAttribute("BD.Common8.Templates.ResourcesDesignerTemplate", "{0}")]
+[global::System.CodeDom.Compiler.GeneratedCodeAttribute("BD.Common8.SourceGenerator.Resx.Templates.DesignerTemplate", "{0}")]
 """u8, FileVersion);
             stream.WriteNewLine();
             stream.Write(

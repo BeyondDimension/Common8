@@ -1,5 +1,3 @@
-using System.Text;
-
 namespace BD.Common8.Extensions;
 
 /// <summary>
@@ -27,8 +25,12 @@ public static partial class ExceptionExtensions
     {
         for (byte i = 0; i < cycle; i++)
         {
-            if (ex.InnerException != null &&
+            if (ex!.InnerException != null &&
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
                 ex.Message.Contains(see_inner_exception, StringComparison.OrdinalIgnoreCase))
+#else
+                ex.Message.ToLowerInvariant().Contains(see_inner_exception))
+#endif
             {
                 ex = ex.InnerException;
             }
@@ -93,6 +95,7 @@ public static partial class ExceptionExtensions
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsCanceledException(this ExceptionKnownType value)
         => value == ExceptionKnownType.Canceled ||
         value == ExceptionKnownType.OperationCanceled ||

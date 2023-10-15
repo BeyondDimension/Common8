@@ -1,5 +1,3 @@
-using BD.Common8.Extensions;
-using System.Text;
 using static BD.Common8.SourceGenerator.Resx.Helpers.ResxSatelliteAssemblyHelper;
 
 namespace BD.Common8.SourceGenerator.Resx.ConsoleTest.Helpers;

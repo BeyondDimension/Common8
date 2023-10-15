@@ -1,4 +1,3 @@
-// ReSharper disable once CheckNamespace
 namespace BD.Common8.Extensions;
 
 public static partial class TimeSpanExtensions

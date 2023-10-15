@@ -1,9 +1,6 @@
 #if !DEL_SYS_IOC && (!NETFRAMEWORK || (NETSTANDARD && NETSTANDARD2_0_OR_GREATER))
 // https://github.com/CommunityToolkit/dotnet/blob/v8.2.1/src/CommunityToolkit.Mvvm/DependencyInjection/Ioc.cs
 
-using Microsoft.Extensions.DependencyInjection;
-using System.Diagnostics;
-
 namespace System;
 
 /// <summary>
@@ -23,10 +20,10 @@ namespace System;
 ///     void Log(string text) => Console.WriteLine(text);
 /// }
 /// </code>
-/// Then the services configuration should then be done at startup, by calling the <see cref="ConfigureServices"/>
+/// Then the services configuration should then be done at startup, by calling the <see cref="ConfigureServices(IServiceProvider)"/>
 /// method and passing an <see cref="IServiceProvider"/> instance with the services to use. That instance can
 /// be from any library offering dependency injection functionality, such as Microsoft.Extensions.DependencyInjection.
-/// For instance, using that library, <see cref="ConfigureServices"/> can be used as follows in this example:
+/// For instance, using that library, <see cref="ConfigureServices(IServiceProvider)"/> can be used as follows in this example:
 /// <code>
 /// Ioc.Default.ConfigureServices(
 ///     new ServiceCollection()

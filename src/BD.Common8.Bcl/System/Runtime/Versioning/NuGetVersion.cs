@@ -6,12 +6,9 @@
 #pragma warning disable SA1209 // Using alias directives should be placed after other using directives
 #pragma warning disable SA1211 // Using alias directives should be ordered alphabetically by alias name
 #pragma warning disable SA1600 // Elements should be documented
+#pragma warning disable IDE0290 // 使用主构造函数
 
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Text;
-
-namespace System;
+namespace System.Runtime.Versioning;
 
 /// <summary>
 /// A hybrid implementation of SemVer that supports semantic versioning as described at http://semver.org while not strictly enforcing it to

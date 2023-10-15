@@ -1,13 +1,26 @@
-using System.Text;
-
 namespace BD.Common8.Extensions;
 
 public static partial class StreamExtensions // Format
 {
-    const byte curlyBracketLeft = 123; // '{'
-    const byte curlyBracketRight = 125; // '}'
-    const byte newLineCR = 13; // '/r' CR
-    const byte newLineLF = 10; // '/n' LF
+    /// <summary>
+    /// '{'
+    /// </summary>
+    public const byte curlyBracketLeft = 123;
+
+    /// <summary>
+    /// '}'
+    /// </summary>
+    public const byte curlyBracketRight = 125;
+
+    /// <summary>
+    /// '/r' CR
+    /// </summary>
+    public const byte newLineCR = 13;
+
+    /// <summary>
+    /// '/n' LF
+    /// </summary>
+    public const byte newLineLF = 10;
 
     /// <summary>
     /// 将 Utf8String 像 <see cref="string.Format(string, object[])"/> 一样格式化并写入流中
@@ -87,6 +100,7 @@ public static partial class StreamExtensions // Format
     /// </summary>
     /// <param name="stream"></param>
     /// <param name="isCRLF"></param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void WriteNewLine(this Stream stream, bool isCRLF = true)
     {
         if (isCRLF)
@@ -98,17 +112,13 @@ public static partial class StreamExtensions // Format
     /// 向 <see cref="Stream"/> 写入左大括号
     /// </summary>
     /// <param name="stream"></param>
-    public static void WriteCurlyBracketLeft(this Stream stream)
-    {
-        stream.WriteByte(curlyBracketLeft);
-    }
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void WriteCurlyBracketLeft(this Stream stream) => stream.WriteByte(curlyBracketLeft);
 
     /// <summary>
     /// 向 <see cref="Stream"/> 写入右大括号
     /// </summary>
     /// <param name="stream"></param>
-    public static void WriteCurlyBracketRight(this Stream stream)
-    {
-        stream.WriteByte(curlyBracketRight);
-    }
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void WriteCurlyBracketRight(this Stream stream) => stream.WriteByte(curlyBracketRight);
 }

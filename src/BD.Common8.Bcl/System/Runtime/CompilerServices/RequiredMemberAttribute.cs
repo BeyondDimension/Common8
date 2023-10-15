@@ -4,8 +4,6 @@
 // https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/Runtime/CompilerServices/RequiredMemberAttribute.cs
 
 #if NETFRAMEWORK || NETSTANDARD || !NET7_0_OR_GREATER
-using System.ComponentModel;
-
 namespace System.Runtime.CompilerServices;
 
 /// <summary>

@@ -1,6 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
-
 namespace BD.Common8.Extensions;
 
 /// <summary>
@@ -15,6 +12,7 @@ public static partial class ObjectExtensions
     /// <param name="argument"></param>
     /// <param name="paramName"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T ThrowIsNull<T>([NotNull] this T? argument, [CallerArgumentExpression(nameof(argument))] string? paramName = null) where T : class
     {
         // https://github.com/dotnet/runtime/blob/v6.0.5/src/libraries/System.Private.CoreLib/src/System/ArgumentNullException.cs#L59

@@ -1,6 +1,3 @@
-using System.Diagnostics;
-using System.Runtime.Serialization;
-
 namespace BD.Common8.Primitives.ApiRsp.Models.Abstractions.Internals;
 
 /// <summary>

@@ -41,6 +41,7 @@ public static partial class Num2IntFormatEnumExtensions
     /// <param name="format"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int ToInt32(this float value, Num2IntFormat format = Num2IntFormat.Floor) => format switch
     {
         Num2IntFormat.RoundAwayFromZero => (int)MathF.Round(value, MidpointRounding.AwayFromZero),
@@ -58,6 +59,7 @@ public static partial class Num2IntFormatEnumExtensions
     /// <param name="format"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int ToInt32(this double value, Num2IntFormat format = Num2IntFormat.Floor) => format switch
     {
         Num2IntFormat.RoundAwayFromZero => (int)Math.Round(value, MidpointRounding.AwayFromZero),
@@ -74,6 +76,7 @@ public static partial class Num2IntFormatEnumExtensions
     /// <param name="format"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int ToInt32(this decimal value, Num2IntFormat format = Num2IntFormat.Floor) => format switch
     {
         Num2IntFormat.RoundAwayFromZero => (int)Math.Round(value, MidpointRounding.AwayFromZero),

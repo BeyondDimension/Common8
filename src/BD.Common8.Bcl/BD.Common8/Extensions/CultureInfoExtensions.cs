@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace BD.Common8.Extensions;
 
 /// <summary>

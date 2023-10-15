@@ -1,7 +1,6 @@
-#if WINDOWS
+#if WINDOWS || NETFRAMEWORK
 
-// ReSharper disable once CheckNamespace
-namespace Microsoft.Win32;
+namespace BD.Common8.Extensions;
 
 public static partial class Win32RegistryKeyExtensions
 {

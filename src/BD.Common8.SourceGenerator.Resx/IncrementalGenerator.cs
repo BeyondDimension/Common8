@@ -1,7 +1,3 @@
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis.Text;
-//using System.Xml.Linq;
 using static BD.Common8.SourceGenerator.Resx.Constants;
 using static BD.Common8.SourceGenerator.Resx.Helpers.ResxSatelliteAssemblyHelper;
 using static BD.Common8.SourceGenerator.Resx.Templates.DesignerTemplate;

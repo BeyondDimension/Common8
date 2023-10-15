@@ -1,14 +1,10 @@
-using System.Reflection;
-
 namespace BD.Common8.Extensions;
 
 /// <summary>
 /// 提供对 Reflection（反射）的扩展函数
 /// </summary>
-public static class ReflectionExtensions
+public static partial class ReflectionExtensions
 {
-    const string TAG = "ReflectionEx";
-
     /// <summary>
     /// 检索应用于指定程序集的指定类型的自定义特性。
     /// <para>如果发生 <see cref="FileNotFoundException"/> 将返回 <see langword="null"/></para>
@@ -16,6 +12,7 @@ public static class ReflectionExtensions
     /// <param name="assembly"></param>
     /// <param name="attrType"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Attribute[]? GetCustomAttributesSafe(this Assembly assembly, Type attrType)
     {
         try
@@ -25,7 +22,9 @@ public static class ReflectionExtensions
         catch (FileNotFoundException)
         {
             // Sometimes the previewer doesn't actually have everything required for these loads to work
-            Log.Warn(TAG, "Could not load assembly: {0} for Attribute {1} | Some renderers may not be loaded", assembly.FullName, attrType.FullName);
+#if !DEL_SYS_LOG && (!NETFRAMEWORK || (NETSTANDARD && NETSTANDARD2_0_OR_GREATER))
+            Log.Warn("ReflectionEx", "Could not load assembly: {0} for Attribute {1} | Some renderers may not be loaded", assembly.FullName, attrType.FullName);
+#endif
         }
 
         return null;
@@ -38,16 +37,19 @@ public static class ReflectionExtensions
     /// <param name="assembly"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException"></exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T GetRequiredCustomAttribute<T>(this Assembly assembly) where T : Attribute
     {
         var requiredCustomAttribute = assembly.GetCustomAttribute<T>();
-        if (requiredCustomAttribute == null)
+#pragma warning disable IDE0079 // 请删除不必要的忽略
 #pragma warning disable CA2208 // 正确实例化参数异常
-            throw new ArgumentNullException(nameof(requiredCustomAttribute));
+        requiredCustomAttribute = requiredCustomAttribute ?? throw new ArgumentNullException(nameof(requiredCustomAttribute));
 #pragma warning restore CA2208 // 正确实例化参数异常
+#pragma warning restore IDE0079 // 请删除不必要的忽略
         return requiredCustomAttribute;
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static bool IsNullableType(this Type t)
     {
         return t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>);
@@ -58,6 +60,7 @@ public static class ReflectionExtensions
     /// </summary>
     /// <param name="t"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsNullable(this Type t)
     {
         if (t.IsValueType) // 值类型(struct)进行可空判断
@@ -70,6 +73,7 @@ public static class ReflectionExtensions
     /// </summary>
     /// <param name="t"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsStatic(this Type t) => t.IsAbstract && t.IsSealed;
 
     /// <summary>
@@ -77,5 +81,6 @@ public static class ReflectionExtensions
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static TypeCode GetTypeCode(this Type type) => Type.GetTypeCode(type);
 }

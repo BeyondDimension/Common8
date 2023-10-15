@@ -1,5 +1,3 @@
-using System.Text;
-
 namespace BD.Common8.Extensions;
 
 public static partial class StreamExtensions // Write
@@ -10,6 +8,7 @@ public static partial class StreamExtensions // Write
     /// <param name="stream"></param>
     /// <param name="s"></param>
     /// <param name="encoding"></param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Write(this Stream stream, string s, Encoding? encoding = null)
     {
         encoding ??= Encoding.UTF8;
@@ -22,16 +21,15 @@ public static partial class StreamExtensions // Write
     /// </summary>
     /// <param name="stream"></param>
     /// <param name="bytes"></param>
-    public static void Write(this Stream stream, byte[] bytes)
-    {
-        stream.Write(bytes, 0, bytes.Length);
-    }
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void Write(this Stream stream, byte[] bytes) => stream.Write(bytes, 0, bytes.Length);
 
     /// <summary>
     /// 向当前流中写入字节序列，并将此流中的当前位置提升写入的字节数
     /// </summary>
     /// <param name="stream"></param>
     /// <param name="bytes"></param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Write(this Stream stream, ReadOnlySpan<byte> bytes)
     {
         for (int i = 0; i < bytes.Length; i++)
@@ -46,6 +44,7 @@ public static partial class StreamExtensions // Write
     /// </summary>
     /// <param name="stream"></param>
     /// <param name="bytes"></param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Write(this Stream stream, IEnumerable<byte> bytes)
     {
         foreach (byte @byte in bytes)

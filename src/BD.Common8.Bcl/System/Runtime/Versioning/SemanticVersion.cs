@@ -12,11 +12,7 @@
 #pragma warning disable SA1211 // Using alias directives should be ordered alphabetically by alias name
 #pragma warning disable SA1600 // Elements should be documented
 
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Text;
-
-namespace System;
+namespace System.Runtime.Versioning;
 
 /// <summary>
 /// A strict SemVer implementation
@@ -104,10 +100,7 @@ public partial class SemanticVersion
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(version);
 #else
-        if (version == null)
-        {
-            throw new ArgumentNullException(nameof(version));
-        }
+        version = version ?? throw new ArgumentNullException(nameof(version));
 #endif
 
         _version = NormalizeVersionValue(version);
@@ -800,10 +793,7 @@ partial class SemanticVersion
 #if NET6_0_OR_GREATER
             ArgumentNullException.ThrowIfNull(arg);
 #else
-            if (arg == null)
-            {
-                throw new ArgumentNullException(nameof(arg));
-            }
+            arg = arg ?? throw new ArgumentNullException(nameof(arg));
 #endif
 
             string? formatted = null;

@@ -5,7 +5,7 @@ global using MethodImplOptions = System.Runtime.CompilerServices.MethodImplOptio
 
 namespace System.Runtime.CompilerServices;
 
-public static partial class MethodImplOptionsEnum
+static partial class MethodImplOptionsEnum
 {
     public const MethodImplOptions Unmanaged = (MethodImplOptions)4;
     public const MethodImplOptions NoInlining = (MethodImplOptions)8;

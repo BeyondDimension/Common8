@@ -10,6 +10,7 @@ public static partial class DateTimeExtensions
     /// </summary>
     /// <param name="dt"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static DateTime GetCurrentMonth(this DateTime dt)
         => new(dt.Year, dt.Month, 1, 0, 0, 0, dt.Kind);
 
@@ -18,6 +19,7 @@ public static partial class DateTimeExtensions
     /// </summary>
     /// <param name="dt"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static DateTime GetCurrentMonthLastDay(this DateTime dt)
         => new DateTime(dt.Year, dt.Month, 1, 0, 0, 0, dt.Kind).AddMonths(1).AddDays(-1);
 
@@ -26,6 +28,7 @@ public static partial class DateTimeExtensions
     /// </summary>
     /// <param name="dt"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static DateTimeOffset GetCurrentMonth(this DateTimeOffset dt)
         => new(dt.Year, dt.Month, 1, 0, 0, 0, dt.Offset);
 
@@ -34,6 +37,7 @@ public static partial class DateTimeExtensions
     /// </summary>
     /// <param name="dt"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static DateTimeOffset GetCurrentMonthLastDay(this DateTimeOffset dt)
         => new DateTimeOffset(dt.Year, dt.Month, 1, 0, 0, 0, dt.Offset).AddMonths(1).AddDays(-1);
 }

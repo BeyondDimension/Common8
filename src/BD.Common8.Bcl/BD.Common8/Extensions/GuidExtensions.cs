@@ -23,6 +23,7 @@ public static partial class GuidExtensions
     /// </summary>
     /// <param name="guid"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string ToStringN(this Guid guid) => guid.ToString("N");
 
     /// <summary>
@@ -30,6 +31,7 @@ public static partial class GuidExtensions
     /// </summary>
     /// <param name="guid"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string? ToStringN(this Guid? guid) => guid.HasValue ? guid.Value.ToStringN() : null;
 
     /// <summary>
@@ -37,6 +39,7 @@ public static partial class GuidExtensions
     /// </summary>
     /// <param name="guid"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string ToStringS(this Guid guid) => ShortGuid.Encode(guid);
 
     /// <summary>
@@ -44,6 +47,7 @@ public static partial class GuidExtensions
     /// </summary>
     /// <param name="guid"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string? ToStringS(this Guid? guid) => guid.HasValue ? guid.Value.ToStringS() : null;
 
     /// <summary>
@@ -52,6 +56,7 @@ public static partial class GuidExtensions
     /// <param name="input"></param>
     /// <param name="result"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool TryParseGuid(this string? input, out Guid result)
         => ShortGuid.TryParse(input, out result);
 
@@ -61,6 +66,7 @@ public static partial class GuidExtensions
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Guid? TryParseGuid(this string? input)
         => input.TryParseGuid(out var result) ? result : default;
 }

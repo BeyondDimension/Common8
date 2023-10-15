@@ -1,6 +1,7 @@
 // https://github.com/aspnet/AspNetIdentity/blob/master/src/Microsoft.AspNet.Identity.Core/AsyncHelper.cs
 
-// ReSharper disable once CheckNamespace
+#pragma warning disable SA1600 // Elements should be documented
+
 namespace BD.Common8.Extensions;
 
 public static partial class TaskExtensions
@@ -83,23 +84,15 @@ public static partial class TaskExtensions
 
     public static Task<T[]> WhenAll<T>(this IEnumerable<Task<T>> tasks) => Task.WhenAll(tasks);
 
-    sealed class TaskLog
+    sealed class TaskLog(string callerMemberName, string callerFilePath, int callerLineNumber, Exception? exception)
     {
-        public string CallerMemberName { get; }
+        public string CallerMemberName { get; } = callerMemberName;
 
-        public string CallerFilePath { get; }
+        public string CallerFilePath { get; } = callerFilePath;
 
-        public int CallerLineNumber { get; }
+        public int CallerLineNumber { get; } = callerLineNumber;
 
-        public Exception? Exception { get; }
-
-        public TaskLog(string callerMemberName, string callerFilePath, int callerLineNumber, Exception? exception)
-        {
-            CallerMemberName = callerMemberName;
-            CallerFilePath = callerFilePath;
-            CallerLineNumber = callerLineNumber;
-            Exception = exception;
-        }
+        public Exception? Exception { get; } = exception;
 
         public static readonly EventHandler<TaskLog> Occured = (sender, e) =>
         {

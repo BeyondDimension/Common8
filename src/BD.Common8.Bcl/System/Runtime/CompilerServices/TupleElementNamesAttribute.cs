@@ -5,7 +5,6 @@
 // https://github.com/dotnet/roslyn/blob/Visual-Studio-2022-Version-17.8-Preview-1/src/Compilers/Test/Resources/Core/NetFX/ValueTuple/TupleElementNamesAttribute.cs
 
 #if NETFRAMEWORK && !NET47_OR_GREATER
-
 namespace System.Runtime.CompilerServices;
 
 /// <summary>
@@ -38,10 +37,7 @@ internal sealed class TupleElementNamesAttribute : Attribute
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(transformNames);
 #else
-        if (transformNames == null)
-        {
-            throw new ArgumentNullException(nameof(transformNames));
-        }
+        _transformNames = transformNames ?? throw new ArgumentNullException(nameof(transformNames));
 #endif
 
         _transformNames = transformNames;

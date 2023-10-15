@@ -129,6 +129,9 @@
   <data name="ApiResponseCode_Unauthorized" xml:space="preserve">
     <value>登录凭证失效，请重新登录</value>
   </data>
+  <data name="ApiResponseCode_UserIsBan" xml:space="preserve">
+    <value>账号已被封禁</value>
+  </data>
   <data name="ClientError_" xml:space="preserve">
     <value>客户端错误 {0}</value>
   </data>

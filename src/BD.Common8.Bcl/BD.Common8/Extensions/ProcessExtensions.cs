@@ -1,17 +1,16 @@
-using System.Diagnostics;
-
 namespace BD.Common8.Extensions;
 
 /// <summary>
 /// 提供对 <see cref="Process"/> 类型的扩展函数
 /// </summary>
-public static class ProcessExtensions
+public static partial class ProcessExtensions
 {
     /// <summary>
     /// 尝试获取关联进程的主模块
     /// </summary>
     /// <param name="process"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ProcessModule? TryGetMainModule(this Process process)
     {
         try
@@ -32,6 +31,7 @@ public static class ProcessExtensions
     [UnsupportedOSPlatform("ios")]
     [UnsupportedOSPlatform("tvos")]
 #endif
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void KillEntireProcessTree(this Process process)
     {
 #if NETCOREAPP3_0_OR_GREATER
@@ -47,6 +47,7 @@ public static class ProcessExtensions
     /// <param name="process"></param>
     /// <param name="milliseconds"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool TryWaitForExit(this Process process, int milliseconds = 9000)
     {
         try

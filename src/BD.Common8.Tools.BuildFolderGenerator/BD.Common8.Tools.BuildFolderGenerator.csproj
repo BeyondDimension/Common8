@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net$(DotNet_Version)</TargetFramework>
-		<DefineConstants>DEL_SERIALIZABLE;$(DefineConstants)</DefineConstants>
+		<DefineConstants>DEL_SERIALIZABLE;DEL_SYS_IOC;DEL_SYS_LOG;DEL_POLLY;$(DefineConstants)</DefineConstants>
 	</PropertyGroup>
 
 	<!--<ItemGroup>

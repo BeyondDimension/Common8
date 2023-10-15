@@ -1,3 +1,7 @@
+#if !(NETCOREAPP2_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER)
+using MathF = System.Math;
+#endif
+
 namespace BD.Common8.Extensions;
 
 /// <summary>
@@ -10,6 +14,7 @@ public static partial class SingleExtensions
     /// </summary>
     /// <param name="f"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int FloorToInt(this float f) => (int)MathF.Floor(f);
 
     /// <summary>
@@ -17,6 +22,7 @@ public static partial class SingleExtensions
     /// </summary>
     /// <param name="f"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int CeilingToInt(this float f) => (int)MathF.Ceiling(f);
 
     /// <summary>
@@ -25,6 +31,7 @@ public static partial class SingleExtensions
     /// <param name="f"></param>
     /// <param name="mode">在两个数字之间时如何舍入的规范</param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int RoundToInt(this float f, MidpointRounding mode) => (int)MathF.Round(f, mode);
 
     /// <summary>
@@ -32,6 +39,7 @@ public static partial class SingleExtensions
     /// </summary>
     /// <param name="f"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int RoundToInt(this float f) => (int)MathF.Round(f);
 
     /// <summary>
@@ -39,5 +47,6 @@ public static partial class SingleExtensions
     /// </summary>
     /// <param name="f"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int Round2ToInt(this float f) => (int)MathF.Round(f, MidpointRounding.AwayFromZero);
 }

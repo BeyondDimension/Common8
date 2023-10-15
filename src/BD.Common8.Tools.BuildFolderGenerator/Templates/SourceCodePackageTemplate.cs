@@ -1,5 +1,3 @@
-using static BD.Common8.ProjectUtils;
-
 namespace BD.Common8.Tools.BuildFolderGenerator.Templates;
 
 /// <summary>
